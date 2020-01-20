@@ -1,22 +1,30 @@
 <template>
-  <div id="app">
-    hello
+  <div class="container">
+    <Main></Main>
   </div>
 </template>
 
 <script>
+import Main from './components/main/Main.vue';
+
 export default {
-  
+  components: {
+    Main,
+  },
+
+  methods: {
+  }
 }
 </script>
-
+  
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+body { 
+  margin-top:0px;
+  margin-left:0px;
+}
+
+.container {
+  width: 100%;
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
 }
 </style>
