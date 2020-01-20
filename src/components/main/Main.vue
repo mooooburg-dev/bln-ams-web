@@ -1,14 +1,16 @@
 <template>
     <div class="wrapper">
-        <h2>Blanc Belluno AMS</h2>
+        <div>
+            <h2>Blanc Belluno AMS</h2>
+        </div>
         <div class="main-table-wrapper">
-            <table class="main-table" border="1">
+            <table class="table-bordered main-table" border="1">
                 <tr>
-                    <td>DATE</td>
-                    <td>TITLE</td>
-                    <td>INCOME</td>
-                    <td>PAID</td>
-                    <td>CHARGE</td>
+                    <td>날짜</td>
+                    <td>제목</td>
+                    <td>들어온 돈</td>
+                    <td>사용한 돈</td>
+                    <td>잔액</td>
                 </tr>
                 <tr>
                     <td></td>
@@ -38,7 +40,7 @@ export default {
 }
 
 .main-table {
-    width: 650px;
+    width: 800px;
 }
 .main-table tr{
     text-align: center;

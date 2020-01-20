@@ -1,0 +1,12 @@
+
+body { 
+    margin-left:0px;
+}
+
+.container {
+    width: 100%;
+    text-align: center;
+}
+.table-bordered td{
+    height: 30px;
+}
