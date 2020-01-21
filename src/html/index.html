@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Dynamic Thumbnail Reference</title>
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+    <style>
+        .container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            margin-top: 50px;
+            left: 70px;
+        }
+
+        .wrapper {
+            width: 900px;
+            height: 500px;
+            /* background-color: #333333; */
+        }
+
+        .content {
+            background-color: #cccccc;
+            width: 400px;
+            height: 200px;
+            /* float: left; */
+            margin-right: 50px;
+            margin-bottom: 50px;
+            position: absolute;   
+        }
+
+        .detail {
+            top: 120px;
+            /* background-color: gray; */
+            left: 0px;
+            width: 700px;
+            position: absolute;
+        }
+
+        .m-table {
+            
+        }
+
+        .m-table td{
+            padding: 10px;
+        }
+        
+        .desc {
+            font-size: 17px;
+            line-height: 1.8;
+            padding: 10px;
+            padding-top: 20px;
+        }
+
+        .util {
+            position: absolute;
+            width: 270px;
+            height: 700px;
+            top: 0px;
+            left: 730px;
+        }
+
+        .u-table td{
+            padding: 10px;
+        }
+    </style>
+
+    <script>
+        
+        var originTop = [0, 0, 250, 250, 500, 500];
+        var originLeft = [0, 450, 0, 450, 0, 450];
+
+        var moveTop = [0, 0, 0, 0, 0, 0];
+        var moveLeft = [0, 120, 240, 360, 480, 600];
+
+        var originWidth = [];
+        var originHeight = [];
+
+        var moveWidth = [];
+        var moveHeight = [];
+
+        var c_state = false;
+        
+        $(function(){
+            for(var i=0 ; i<$('.content').length ; i++){
+                $('.content').eq(i).css({
+                    'top':originTop[i],
+                    'left':originLeft[i],
+                })
+            }
+
+            $('.content').on('click', function(e){
+                e.preventDefault();
+                setMove();
+            })
+
+            $('.util').hide();
+            $('.detail').hide();
+
+            $('body').on('click', function(e){
+                
+            })
+        })
+
+        function setMove(){
+            if(!c_state){
+                for(var i=0 ; i<$('.content').length ; i++){
+                    $('.content').eq(i).delay(20+(40*i)).animate({
+                        'top': moveTop[i],
+                        'left': moveLeft[i],
+                        'width': 100,
+                        'height': 100,
+                    })
+                }
+
+                $('.detail').show();
+                $('.detail').css({'opacity':0, 'top':140,});
+                $('.detail').delay(600).animate({
+                    'opacity':1,
+                    'top':120, 
+                })
+
+                $('.util').show();
+                $('.util').css({'opacity':0, 'left':830,});
+                $('.util').delay(800).animate({
+                    'opacity':1,
+                    'left':730, 
+                })
+
+                c_state = true;
+            }
+            else{
+                $('.detail').animate({
+                    'opacity':0,
+                    'top':140, 
+                }, function(){
+                    $('.detail').hide();  
+                })
+
+                $('.util').animate({
+                    'opacity':0,
+                    'left':830, 
+                }, function(){
+                    $('.util').hide();
+                })
+
+
+                for(var i=0 ; i<$('.content').length ; i++){
+                    $('.content').eq(i).animate({
+                        'top': originTop[i],
+                        'left': originLeft[i],
+                        'width': 400,
+                        'height': 200,
+                    })
+                }
+
+                c_state = false;
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="header" style="text-align: center;">
+        <img src="img/header.png" width="1400px"/>
+        <img src="img/title.png" width="1000px"/>
+    </div>
+    <div class="container">  
+        <div class="wrapper">
+            <div class="content"></div>
+            <div class="content"></div>
+            <div class="content"></div>
+            <div class="content"></div>
+            <div class="content"></div>
+            <div class="content"></div>
+        </div>
+    
+        <div class="detail">
+            <table class="table-bordered m-table" style="background-color: white; width: 100%">
+                <colgroup>
+                    <col width="30%"/>
+                    <col width="70%"/>
+                </colgroup>
+                <tr>
+                    <td rowspan="5">
+                        <div style="width: 180px; height: 180px; ">
+                            <img src="https://dummyimage.com/190/CCC/fff"/>
+                        </div>
+                    </td>
+                    <td>inform #1</td>
+                </tr>
+                <tr>
+                    <td>inform #2</td>
+                </tr>
+                <tr>
+                    <td>inform #3</td>
+                </tr>
+                <tr>
+                    <td>inform #4</td>
+                </tr>
+                <tr>
+                    <td>inform #5</td>
+                </tr>
+            </table>
+            <div class="desc">
+                <p>The US Navy will name a new aircraft carrier after Doris "Dorie" Miller, a decorated African American World War II veteran who defended Pearl Harbor during the 1941 attack on the Hawaii naval base, making it the first aircraft carrier to be named after an African American.
+    
+                    Acting Secretary of the Navy Thomas Modly made the announcement Monday during a ceremony at Joint Base Pearl Harbor-Hickam on Martin Luther King Jr. Day, the national holiday commemorating the life of the slain civil rights leader.
+                    During the attack on Pearl Harbor, Miller manned an anti-aircraft machine gun aboard the battleship USS West Virginia "until he ran out of ammunition and was ordered to abandon ship," 
+                    This story has been updated with additional information from the ceremony Monday.
+                    CNN's Caroline Kelly, Andy Rose and Zach Cohen contributed to this report.</p>
+            </div>
+        </div>
+        <div class="util">
+            <table class="table-bordered u-table" style="width: 100%">
+                <tr style="height:50px;">
+                    <td>detail #1</td>
+                </tr>
+                <tr style="height:50px;">
+                    <td>detail #2</td>
+                </tr>
+                <tr style="height:50px;">
+                    <td>detail #3</td>
+                </tr>
+                <tr style="height:50px;">
+                    <td>detail #4</td>
+                </tr>
+                <tr style="height:300px;">
+                    <td>
+                        <button type="button" class="btn btn-info" style="position: absolute; bottom: 240px; left: 56px; width: 160px;">Buy Product</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    
+</body>
+</html>
