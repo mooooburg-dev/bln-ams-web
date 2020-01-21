@@ -1,6 +1,6 @@
 <template>
   <div class="container-footer">
-      <p>copyrights by jeongmupark.com</p>
+      <p>copyrights by Blanc-Belluno</p>
   </div>
 </template>
 

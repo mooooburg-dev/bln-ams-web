@@ -1,7 +1,7 @@
 <template>
-    <div class="conatiner-main">
+    <div class="container-main">
         <div>
-            <!-- <h2>B-AMS</h2> -->
+            <h2>BB-AMS</h2>
         </div>
         <div class="search-area">
             <table class="search-table" style="width:100%; height:80px;">
@@ -51,7 +51,7 @@
                             <b-modal id="modal-input" size="lg" title="Input Data" @show="resetModal" @hidden="resetModal" @ok="handleOk">
                                 <table class="input-table" style="width:100%;">
                                     <tr>
-                                        <td></td>
+                                        <td>no</td>
                                         <td>column1</td>
                                         <td>column2</td>
                                         <td>column3</td>
@@ -59,12 +59,12 @@
                                     </tr>
                                     <tr>
                                         <td>1</td>
-                                        <td><input type="Start Date" class="form-control" id="Start Data"></td>
-                                        <td><input type="Start Date" class="form-control" id="Start Data"></td>
-                                        <td><input type="Start Date" class="form-control" id="Start Data"></td>
-                                        <td><input type="Start Date" class="form-control" id="Start Data"></td>
+                                        <td><input type="text" class="form-control" id="input-date" v-model="input_date"></td>
+                                        <td><input type="text" class="form-control" id="input-title" v-model="input_title"></td>
+                                        <td><input type="text" class="form-control" id="input-income" v-model="input_income"></td>
+                                        <td><input type="text" class="form-control" id="input-paid" v-model="input_paid"></td>
                                     </tr>
-                                    <tr>
+                                    <!-- <tr>
                                         <td>2</td>
                                         <td><input type="Start Date" class="form-control" id="Start Data"></td>
                                         <td><input type="Start Date" class="form-control" id="Start Data"></td>
@@ -91,7 +91,7 @@
                                         <td><input type="Start Date" class="form-control" id="Start Data"></td>
                                         <td><input type="Start Date" class="form-control" id="Start Data"></td>
                                         <td><input type="Start Date" class="form-control" id="Start Data"></td>
-                                    </tr>
+                                    </tr> -->
                                 </table>
                             </b-modal>
                         </div>
@@ -154,6 +154,10 @@ export default {
 
             selected_cate: 0,
             resize_tl: 0,
+            input_date: '0000-00-00',
+            input_title: 'noname',
+            input_income: '0000',
+            input_paid: '0000',
         }
     },
     mounted(){
@@ -174,6 +178,8 @@ export default {
             this.handleSubmit();
         },
         handleSubmit(){
+            
+
             this.$nextTick(() => {
                 this.$bvModal.hide('modal-input')
             })
@@ -193,8 +199,8 @@ export default {
 </script>
 
 <style>
-.wrapper{
-    /* width: 100%; */
+.container-main{
+    padding-top: 30px;
 }
 
 .main-table-wrapper {
@@ -262,9 +268,9 @@ export default {
 .total-info-area {
     position:fixed;
     left:0px;
-    top: 150px;
+    top: 206px;
     width: 250px;
-    height: 100px;
+    height: 101px;
     background-color: white;
     z-index: 100;
     border: 1px solid #dddddd;
