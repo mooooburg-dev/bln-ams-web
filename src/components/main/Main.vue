@@ -1,14 +1,14 @@
 <template>
     <div class="container-main">
         <div>
-            <h2>BB-AMS</h2>
+            <h2>Belluno AMS</h2>
         </div>
         <div class="search-area">
             <table class="search-table" style="width:100%; height:80px;">
                 <colgroup>
-                    <col width=30%>
+                    <col width=29%>
                     <col width=54%>
-                    <col width=16%>
+                    <col width=17%>
                 </colgroup>
                 <tr>
                     <td>
@@ -123,10 +123,10 @@
                 </tr>
                 <tr v-for="(item, item_idx) of test_obj">
                     <td>{{item.data1}}</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>{{item.data2}}</td>
+                    <td>{{item.data3}}</td>
+                    <td>{{item.data4}}</td>
+                    <td>{{item.data5}}</td>
                 </tr>
             </table>
         </div>
@@ -140,7 +140,7 @@ export default {
     data(){
         return{
             test_obj: [
-                {'data1':'2020.01.20', 'data2':'data2', 'data3':'data3', 'data4':'data4', 'data5':'data5'},
+                {'data1':'2020.01.20', 'data2':'실 구입', 'data3':'0', 'data4':'32,000', 'data5':'data5'},
                 {'data1':'2020.01.20', 'data2':'data2', 'data3':'data3', 'data4':'data4', 'data5':'data5'},
                 {'data1':'2020.01.20', 'data2':'data2', 'data3':'data3', 'data4':'data4', 'data5':'data5'},
                 {'data1':'2020.01.20', 'data2':'data2', 'data3':'data3', 'data4':'data4', 'data5':'data5'},
@@ -178,7 +178,20 @@ export default {
             this.handleSubmit();
         },
         handleSubmit(){
-            
+            // 년도 데이터 가져오기
+            // const yearURI = '/pm/selfConpetentcy/getYearList';
+            // this.$http.get(`${yearURI}`, {
+            //  params: {
+            //     evalSetNo: this.dataYearRound.evalSetNo,
+            //     leaderYn: this.leaderYn,
+            //  }
+            // })
+            // .then(result => {
+            //     this.dataYearRound.evalYearCombo = result.data;
+            //     this.dataYearRound.evalSetNo = this.evalSetNo;
+            //     this.fetchRoundData();
+            // })
+
 
             this.$nextTick(() => {
                 this.$bvModal.hide('modal-input')
