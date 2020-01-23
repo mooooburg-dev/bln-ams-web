@@ -115,17 +115,17 @@
         <div class="main-table-wrapper">
             <table class="table-bordered main-table" border="1">
                 <tr>
-                    <td>column1</td>
+                    <td>No</td>
                     <td>column2</td>
                     <td>column3</td>
                     <td>column4</td>
                     <td>column5</td>
                 </tr>
-                <tr v-for="(item, item_idx) of test_obj">
-                    <td>{{item.data1}}</td>
-                    <td>{{item.data2}}</td>
-                    <td>{{item.data3}}</td>
-                    <td>{{item.data4}}</td>
+                <tr v-for="item in data_obj">
+                    <td>{{item.date}}</td>
+                    <td>{{item.title}}</td>
+                    <td>{{item.income}}</td>
+                    <td>{{item.paid}}</td>
                     <td>{{item.data5}}</td>
                 </tr>
             </table>
@@ -136,28 +136,31 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
     data(){
         return{
-            test_obj: [
-                {'data1':'2020.01.20', 'data2':'실 구입', 'data3':'0', 'data4':'32,000', 'data5':'data5'},
-                {'data1':'2020.01.20', 'data2':'data2', 'data3':'data3', 'data4':'data4', 'data5':'data5'},
-                {'data1':'2020.01.20', 'data2':'data2', 'data3':'data3', 'data4':'data4', 'data5':'data5'},
-                {'data1':'2020.01.20', 'data2':'data2', 'data3':'data3', 'data4':'data4', 'data5':'data5'},
-                {'data1':'2020.01.20', 'data2':'data2', 'data3':'data3', 'data4':'data4', 'data5':'data5'},
-                {'data1':'2020.01.20', 'data2':'data2', 'data3':'data3', 'data4':'data4', 'data5':'data5'},
-                {'data1':'2020.01.20', 'data2':'data2', 'data3':'data3', 'data4':'data4', 'data5':'data5'},
-                {'data1':'2020.01.20', 'data2':'data2', 'data3':'data3', 'data4':'data4', 'data5':'data5'},
-                {'data1':'2020.01.20', 'data2':'data2', 'data3':'data3', 'data4':'data4', 'data5':'data5'},
-                {'data1':'2020.01.20', 'data2':'data2', 'data3':'data3', 'data4':'data4', 'data5':'data5'},
-            ],
+            // test_obj: [
+            //     {'data1':'2020.01.20', 'data2':'data2', 'data3':'data3', 'data4':'data4', date5:'data5'},
+            //     {'data1':'2020.01.20', 'data2':'data2', 'data3':'data3', 'data4':'data4', date5:'data5'},
+            //     {'data1':'2020.01.20', 'data2':'data2', 'data3':'data3', 'data4':'data4', date5:'data5'},
+            //     {'data1':'2020.01.20', 'data2':'data2', 'data3':'data3', 'data4':'data4', date5:'data5'},
+            //     {'data1':'2020.01.20', 'data2':'data2', 'data3':'data3', 'data4':'data4', date5:'data5'},
+            //     {'data1':'2020.01.20', 'data2':'data2', 'data3':'data3', 'data4':'data4', date5:'data5'},
+            //     {'data1':'2020.01.20', 'data2':'data2', 'data3':'data3', 'data4':'data4', date5:'data5'},
+            //     {'data1':'2020.01.20', 'data2':'data2', 'data3':'data3', 'data4':'data4', date5:'data5'},
+            //     {'data1':'2020.01.20', 'data2':'data2', 'data3':'data3', 'data4':'data4', date5:'data5'},
+            //     {'data1':'2020.01.20', 'data2':'data2', 'data3':'data3', 'data4':'data4', date5:'data5'},
+            // ],
 
+            data_obj: [],
             selected_cate: 0,
             resize_tl: 0,
             input_date: '0000-00-00',
             input_title: 'noname',
             input_income: '0000',
             input_paid: '0000',
+            result_data: [],
         }
     },
     mounted(){
@@ -165,11 +168,29 @@ export default {
         $('.total-info-area').css({
             'left': this.resize_tl,
         });
+
+        axios.get('http://localhost:8090/bln-ams-api/bln_history')
+        .then(result => {
+            this.data_obj = result.data;
+        })
+        .catch(error =>{
+
+        })
+
         
+        
+
         this.addEvents();
+
+        
     },
 
     methods: {
+
+        setData(){
+            this.data_obj = this.result_data;
+            console.log(this.result_data);
+        },
         resetModal(){
 
         },
@@ -178,19 +199,23 @@ export default {
             this.handleSubmit();
         },
         handleSubmit(){
-            // 년도 데이터 가져오기
-            // const yearURI = '/pm/selfConpetentcy/getYearList';
-            // this.$http.get(`${yearURI}`, {
-            //  params: {
-            //     evalSetNo: this.dataYearRound.evalSetNo,
-            //     leaderYn: this.leaderYn,
-            //  }
-            // })
-            // .then(result => {
-            //     this.dataYearRound.evalYearCombo = result.data;
-            //     this.dataYearRound.evalSetNo = this.evalSetNo;
-            //     this.fetchRoundData();
-            // })
+            axios.get('http://localhost:8090/bln-ams-api/bln_history_add', {
+                params: {
+                    date: this.input_date,
+                    title: this.input_title,
+                    income: this.input_income,
+                    paid: this.input_paid,
+                }
+            })
+                .then(result => {
+
+                    this.data_obj = result.data;
+                })
+                .catch(error =>{
+
+                })
+
+            
 
 
             this.$nextTick(() => {
