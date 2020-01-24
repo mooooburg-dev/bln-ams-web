@@ -51,47 +51,19 @@
                             <b-modal id="modal-input" size="lg" title="Input Data" @show="resetModal" @hidden="resetModal" @ok="handleOk">
                                 <table class="input-table" style="width:100%;">
                                     <tr>
-                                        <td>no</td>
-                                        <td>column1</td>
-                                        <td>column2</td>
-                                        <td>column3</td>
-                                        <td>column4</td>
+                                        <td></td>
+                                        <td>날짜</td>
+                                        <td>내용</td>
+                                        <td>수입</td>
+                                        <td>지출</td>
                                     </tr>
                                     <tr>
                                         <td>1</td>
-                                        <td><input type="text" class="form-control" id="input-date" v-model="input_date"></td>
-                                        <td><input type="text" class="form-control" id="input-title" v-model="input_title"></td>
-                                        <td><input type="text" class="form-control" id="input-income" v-model="input_income"></td>
-                                        <td><input type="text" class="form-control" id="input-paid" v-model="input_paid"></td>
+                                        <td><input type="text" class="form-control" id="input-date" v-model="input_date" placeholder="(yyyymmdd)" maxlength="8"></td>
+                                        <td><input type="text" class="form-control" id="input-title" v-model="input_title" placeholder="title"></td>
+                                        <td><input type="text" class="form-control" id="input-income" v-model="input_income" placeholder="0"></td>
+                                        <td><input type="text" class="form-control" id="input-paid" v-model="input_paid" placeholder="0"></td>
                                     </tr>
-                                    <!-- <tr>
-                                        <td>2</td>
-                                        <td><input type="Start Date" class="form-control" id="Start Data"></td>
-                                        <td><input type="Start Date" class="form-control" id="Start Data"></td>
-                                        <td><input type="Start Date" class="form-control" id="Start Data"></td>
-                                        <td><input type="Start Date" class="form-control" id="Start Data"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td><input type="Start Date" class="form-control" id="Start Data"></td>
-                                        <td><input type="Start Date" class="form-control" id="Start Data"></td>
-                                        <td><input type="Start Date" class="form-control" id="Start Data"></td>
-                                        <td><input type="Start Date" class="form-control" id="Start Data"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>4</td>
-                                        <td><input type="Start Date" class="form-control" id="Start Data"></td>
-                                        <td><input type="Start Date" class="form-control" id="Start Data"></td>
-                                        <td><input type="Start Date" class="form-control" id="Start Data"></td>
-                                        <td><input type="Start Date" class="form-control" id="Start Data"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>5</td>
-                                        <td><input type="Start Date" class="form-control" id="Start Data"></td>
-                                        <td><input type="Start Date" class="form-control" id="Start Data"></td>
-                                        <td><input type="Start Date" class="form-control" id="Start Data"></td>
-                                        <td><input type="Start Date" class="form-control" id="Start Data"></td>
-                                    </tr> -->
                                 </table>
                             </b-modal>
                         </div>
@@ -100,37 +72,44 @@
             </table>
             
         </div>
+        <div class="main-table-wrapper">
+            <table class="table table-bordered main-table" border="1">
+                <colgroup>
+                    <col width="25%">
+                    <col width="25%">
+                    <col width="25%">
+                    <col width="25%">
+                </colgroup>
+                <thead class="thead-dark">
+                    <th>날짜</th>
+                    <th>내용</th>
+                    <th>수입</th>
+                    <th>지출</th>
+                </thead>
+                <tr v-for="item in data[0]">
+                    <td>{{item.date}}</td>
+                    <td>{{item.title}}</td>
+                    <td class="font-blue">{{addComma(item.income)}}</td>
+                    <td class="font-red">{{addComma(item.paid)}}</td>
+                </tr>
+            </table>
+        </div>
         <div class="total-info-area">
             <table class="total-info-table">
                 <tr>
-                    <td>Info1</td>
-                    <td>0,000,000</td>
+                    <td>총 매출</td>
+                    <td class="font-blue">{{addComma(data[1].total_income)}}</td>
                 </tr>
                 <tr>
-                    <td>Info2</td>
-                    <td>0,000,000</td>
+                    <td>전체 지출</td>
+                    <td class="font-red">{{addComma(data[1].total_paid)}}</td>
+                </tr>
+                <tr>
+                    <td>순 이익</td>
+                    <td>{{addComma(data[1].total_income - data[1].total_paid)}}</td>
                 </tr>
             </table>
         </div>
-        <div class="main-table-wrapper">
-            <table class="table-bordered main-table" border="1">
-                <tr>
-                    <td>No</td>
-                    <td>column2</td>
-                    <td>column3</td>
-                    <td>column4</td>
-                    <td>column5</td>
-                </tr>
-                <tr v-for="item in data_obj">
-                    <td>{{item.date}}</td>
-                    <td>{{item.title}}</td>
-                    <td>{{item.income}}</td>
-                    <td>{{item.paid}}</td>
-                    <td>{{item.data5}}</td>
-                </tr>
-            </table>
-        </div>
-        
     </div>
     
 </template>
@@ -140,38 +119,28 @@ import axios from 'axios';
 export default {
     data(){
         return{
-            // test_obj: [
-            //     {'data1':'2020.01.20', 'data2':'data2', 'data3':'data3', 'data4':'data4', date5:'data5'},
-            //     {'data1':'2020.01.20', 'data2':'data2', 'data3':'data3', 'data4':'data4', date5:'data5'},
-            //     {'data1':'2020.01.20', 'data2':'data2', 'data3':'data3', 'data4':'data4', date5:'data5'},
-            //     {'data1':'2020.01.20', 'data2':'data2', 'data3':'data3', 'data4':'data4', date5:'data5'},
-            //     {'data1':'2020.01.20', 'data2':'data2', 'data3':'data3', 'data4':'data4', date5:'data5'},
-            //     {'data1':'2020.01.20', 'data2':'data2', 'data3':'data3', 'data4':'data4', date5:'data5'},
-            //     {'data1':'2020.01.20', 'data2':'data2', 'data3':'data3', 'data4':'data4', date5:'data5'},
-            //     {'data1':'2020.01.20', 'data2':'data2', 'data3':'data3', 'data4':'data4', date5:'data5'},
-            //     {'data1':'2020.01.20', 'data2':'data2', 'data3':'data3', 'data4':'data4', date5:'data5'},
-            //     {'data1':'2020.01.20', 'data2':'data2', 'data3':'data3', 'data4':'data4', date5:'data5'},
-            // ],
-
-            data_obj: [],
+            data: [],
             selected_cate: 0,
             resize_tl: 0,
-            input_date: '0000-00-00',
-            input_title: 'noname',
-            input_income: '0000',
-            input_paid: '0000',
+            input_date: '',
+            input_title: '',
+            input_income: '0',
+            input_paid: '0',
             result_data: [],
         }
     },
     mounted(){
-        this.resize_tl = ($(window).width()/2)-(1110/2)-249;
-        $('.total-info-area').css({
-            'left': this.resize_tl,
-        });
+        setTimeout(function(){
+            $('.total-info-area').css({
+                'left': ($(window).width()/2)-(1110/2)-249,
+            });
+        },200)
+        
 
         axios.get('http://localhost:8090/bln-ams-api/bln_history')
         .then(result => {
-            this.data_obj = result.data;
+            this.data = result.data;
+            console.log(result);
         })
         .catch(error =>{
 
@@ -186,11 +155,6 @@ export default {
     },
 
     methods: {
-
-        setData(){
-            this.data_obj = this.result_data;
-            console.log(this.result_data);
-        },
         resetModal(){
 
         },
@@ -207,16 +171,13 @@ export default {
                     paid: this.input_paid,
                 }
             })
-                .then(result => {
+            .then(result => {
+                this.data = result.data;
+                console.log(result);
+            })
+            .catch(error =>{
 
-                    this.data_obj = result.data;
-                })
-                .catch(error =>{
-
-                })
-
-            
-
+            })
 
             this.$nextTick(() => {
                 this.$bvModal.hide('modal-input')
@@ -228,7 +189,13 @@ export default {
                     'left': ($(window).width()/2)-(1110/2)-249,
                 });
             })
-        }
+        },
+
+        addComma(num){
+            var regexp = /\B(?=(\d{3})+(?!\d))/g;
+            return num.toString().replace(regexp, ',');
+        },
+
     },
     props: {
         msg: String
@@ -253,8 +220,8 @@ export default {
     /* margin-top: 50px; */
 }
 .main-table tr{
-    text-align: center;
-    height: 50px;
+    /* text-align: center; */
+    /* height: 20px; */
 }
 
 .search-area {
@@ -308,13 +275,14 @@ export default {
     left:0px;
     top: 206px;
     width: 250px;
-    height: 101px;
+    height: 140px;
     background-color: white;
     z-index: 100;
     border: 1px solid #dddddd;
 }
 
 .total-info-table td{
-    padding: 5px;
+    padding: 10px;
+    text-align: left;
 }
 </style>

@@ -10,3 +10,11 @@ body {
 .table-bordered td{
     height: 30px;
 }
+
+.font-blue {
+    color: blue;
+}
+
+.font-red {
+    color:red;
+}
