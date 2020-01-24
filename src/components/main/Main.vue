@@ -86,7 +86,7 @@
                     <th>수입</th>
                     <th>지출</th>
                 </thead>
-                <tr v-for="item in data[0]">
+                <tr :v-for="item in data[0]">
                     <td>{{item.date}}</td>
                     <td>{{item.title}}</td>
                     <td class="font-blue">{{addComma(item.income)}}</td>
@@ -218,10 +218,6 @@ export default {
     width: 1110px;
     background-color: white;
     /* margin-top: 50px; */
-}
-.main-table tr{
-    /* text-align: center; */
-    /* height: 20px; */
 }
 
 .search-area {
