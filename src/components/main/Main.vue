@@ -86,7 +86,7 @@
                     <th>수입</th>
                     <th>지출</th>
                 </thead>
-                <tr :v-for="item in data[0]">
+                <tr v-for="item in data[0]">
                     <td>{{item.date}}</td>
                     <td>{{item.title}}</td>
                     <td class="font-blue">{{addComma(item.income)}}</td>
@@ -119,7 +119,9 @@ import axios from 'axios';
 export default {
     data(){
         return{
-            data: [],
+            data: [
+                [],[]
+            ],
             selected_cate: 0,
             resize_tl: 0,
             input_date: '',
@@ -140,7 +142,6 @@ export default {
         axios.get('http://localhost:8090/bln-ams-api/bln_history')
         .then(result => {
             this.data = result.data;
-            console.log(result);
         })
         .catch(error =>{
 
@@ -193,7 +194,7 @@ export default {
 
         addComma(num){
             var regexp = /\B(?=(\d{3})+(?!\d))/g;
-            return num.toString().replace(regexp, ',');
+            return String(num).replace(regexp, ',');
         },
 
     },
