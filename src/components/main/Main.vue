@@ -139,7 +139,7 @@ export default {
         },200)
         
 
-        axios.get('http://localhost:8090/bln-ams-api/bln_history')
+        axios.get('http://localhost:8090/bln-ams-api/bln_history_list')
         .then(result => {
             this.data = result.data;
         })
