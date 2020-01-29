@@ -119,9 +119,7 @@ import axios from 'axios';
 export default {
     data(){
         return{
-            data: [
-                [],[]
-            ],
+            data: [[],[]],
             selected_cate: 0,
             resize_tl: 0,
             input_date: '',
